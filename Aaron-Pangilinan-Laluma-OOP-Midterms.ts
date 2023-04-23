@@ -1,4 +1,4 @@
-class Restaurant {
+abstract class Restaurant {
     private _name: string;
     private _location: string;
     private _openTime: number;
@@ -44,8 +44,9 @@ class Restaurant {
             console.log(`We've received ${this.rating} stars: ${feedback}. Your honest review will greatly help us improve our services. Thank you and have a great day.`);
         };
     };
+}
 
-    class cafe extends Restaurant {
+    class Cafe extends Restaurant {
         private _franchise: string
         private _shareholderStocks: string
         private _marketing: string;
@@ -74,4 +75,4 @@ class Restaurant {
     };
     };
 
-}
+
