@@ -1,21 +1,27 @@
 interface Business {
-    getRestoName(): String;
+    getRestoName(): string;
     getMenuItem(): void;
     takeOrder(order: string): void;
     getPayment(): void;
-    getFeedback(): void;
+    getPaymentMethod(): void;
 }
 
     abstract class Restaurant implements Business {
         protected _name: string;
         protected _cuisine: string;
         protected _menu: string[];
-        private _rating: void;
+        protected _paymentMethod: string;
+        private _openTime: string;
+        private _closeTime: string;
+        private _rating: string;
 
-        constructor(name: string, cuisine: string, menu: string[], rating: void) {
+        constructor(name: string, cuisine: string, menu: string[], paymentMethod: string, openTime: string, closeTime: string, rating: string, ) {
             this._name = name;
             this._cuisine = cuisine;
             this._menu = menu;
+            this._paymentMethod = paymentMethod;
+            this._openTime = openTime;
+            this._closeTime = closeTime;
             this._rating = rating;
         };
 
@@ -39,34 +45,13 @@ interface Business {
             console.log(`Please pay at the cashier. Thank you.`);
         };
 
-        public getFeedback(): void {
-            console.log(`Please provide some feedback. We would greatly appreciate your feedback as it would assist us in enhancing our 
-            services to better meet your requirements. Thank you`);
-        };
-    };
-
-    class fastFood extends Restaurant {
-        private _location: string;
-        private _openTime: string;
-        private _closeTime: string;
-        private _franchise: boolean;
-        private _shareholderStocks: void;
-        private _marketing: void;
-
-        constructor(name: string, cuisine: string, menu: string[], rating: void, 
-            location: string, openTime: string, closeTime: string, franchise: boolean, shareholderStocks: void, marketing: void) {
-        super(name, cuisine, menu, rating) 
-            this._location = location;
-            this._openTime = openTime;
-            this._closeTime = closeTime;
-            this._franchise = franchise;
-            this._shareholderStocks = shareholderStocks;
-            this._marketing = marketing;
-        };
-
-        public getRestoName(): string {
-            return this._name;
-        };
+        public getPaymentMethod(): void {
+            if (this._paymentMethod === 'credit card' || this._paymentMethod === 'online payment' || this._paymentMethod === 'cash') {
+                console.log(`Payment through ${this._paymentMethod} is successful. Thank you for dining with us!`)
+            } else {
+                console.log (`Mode of payment is not accepted. Please try again.`)
+            }
+        }
 
         public hoursOpen(): void {
             let openHour = parseInt(this._openTime.split(':')[0]);
@@ -79,7 +64,46 @@ interface Business {
                 time = 24 - openHour + closeHour;
               };
 
-            console.log(`${this._name} is open for ${time}. Enjoy!`);
+            console.log(`${this._name} is open for ${time} hours. Enjoy!`);
+        };
+
+        public getRatings(): void {
+            if (this._rating === '5' || this._rating === '4') {
+                console.log(`Thank you for rating us ${this._rating} stars!`);
+            } else if (this._rating === '3') {
+                console.log(`Thank you for rating us ${this._rating} stars! We will improve our service for your best experience.`)
+            } else if (this._rating === '2' || this._rating === '1' ) {
+                console.log(`We are sorry that we didn't meet your expectations. Thank you for your review.`)
+            }
+        }
+
+        public getFeedback(): void {
+            console.log(`Please provide some feedback. We would greatly appreciate your feedback as it would assist us in enhancing our 
+            services to better meet your requirements. Thank you`);
+        };
+    };
+
+    class FastFood extends Restaurant {
+        private _location: string;
+        private _customerLocation: string;
+        private _deliveryRider: string;
+        private _franchise: boolean;
+        private _shareholderStocks: void;
+        private _marketing: void;
+
+        constructor(name: string, cuisine: string, menu: string[], paymentMethod: string, openTime: string, closeTime: string, rating: string, 
+            location: string, customerLocation: string, deliveryRider: string, franchise: boolean, shareholderStocks: void, marketing: void) {
+        super(name, cuisine, menu, paymentMethod, openTime, closeTime, rating) 
+            this._location = location;
+            this._customerLocation = customerLocation;
+            this._deliveryRider = deliveryRider;
+            this._franchise = franchise;
+            this._shareholderStocks = shareholderStocks;
+            this._marketing = marketing;
+        };
+
+        public getRestoName(): string {
+            return this._name;
         };
 
         public getMenuItem(): void {
@@ -98,10 +122,8 @@ interface Business {
             console.log(`Please pay at the cashier. Thank you.`);
         };
 
-        public getFeedback(): void {
-            console.log(`Please provide some feedback. We would greatly appreciate your feedback as it would assist us in enhancing our 
-            services to better meet your requirements. Thank you`);
-        };
+        public deliveryService(): void {
+            console.log(`Delivery is on the way by rider ${this._deliveryRider}`)
+        }
 
-        
-    };
+    }
