@@ -4,19 +4,27 @@ interface Business {
     takeOrder(order: string): void;
     getPayment(): void;
     getPaymentMethod(): void;
+    hoursOpen(): void;
+    getRatings(): void;
+    getFeedback(): void;
 }
 
     abstract class Restaurant implements Business {
         protected _name: string;
+        protected _location: string;
         protected _cuisine: string;
         protected _menu: string[];
         protected _paymentMethod: string;
-        private _openTime: string;
-        private _closeTime: string;
-        private _rating: string;
+        protected _openTime: string;
+        protected _closeTime: string;
+        protected _rating: number;
+        //protected _email: void;
 
-        constructor(name: string, cuisine: string, menu: string[], paymentMethod: string, openTime: string, closeTime: string, rating: string, ) {
+
+        constructor(name: string, location: string, cuisine: string, menu: string[], 
+            paymentMethod: string, openTime: string, closeTime: string, rating: number, ) {
             this._name = name;
+            this._location = location;
             this._cuisine = cuisine;
             this._menu = menu;
             this._paymentMethod = paymentMethod;
@@ -68,11 +76,11 @@ interface Business {
         };
 
         public getRatings(): void {
-            if (this._rating === '5' || this._rating === '4') {
+            if (this._rating === 5 || this._rating === 4) {
                 console.log(`Thank you for rating us ${this._rating} stars!`);
-            } else if (this._rating === '3') {
+            } else if (this._rating === 3) {
                 console.log(`Thank you for rating us ${this._rating} stars! We will improve our service for your best experience.`)
-            } else if (this._rating === '2' || this._rating === '1' ) {
+            } else if (this._rating < 3) {
                 console.log(`We are sorry that we didn't meet your expectations. Thank you for your review.`)
             }
         }
@@ -84,22 +92,17 @@ interface Business {
     };
 
     class FastFood extends Restaurant {
-        private _location: string;
         private _customerLocation: string;
         private _deliveryRider: string;
-        private _franchise: boolean;
-        private _shareholderStocks: void;
-        private _marketing: void;
 
-        constructor(name: string, cuisine: string, menu: string[], paymentMethod: string, openTime: string, closeTime: string, rating: string, 
-            location: string, customerLocation: string, deliveryRider: string, franchise: boolean, shareholderStocks: void, marketing: void) {
-        super(name, cuisine, menu, paymentMethod, openTime, closeTime, rating) 
-            this._location = location;
+
+
+        constructor(name: string, cuisine: string, menu: string[], 
+            paymentMethod: string, openTime: string, closeTime: string, rating: number, 
+            location: string, customerLocation: string, deliveryRider: string) {
+        super(name, location, cuisine, menu, paymentMethod, openTime, closeTime, rating) 
             this._customerLocation = customerLocation;
             this._deliveryRider = deliveryRider;
-            this._franchise = franchise;
-            this._shareholderStocks = shareholderStocks;
-            this._marketing = marketing;
         };
 
         public getRestoName(): string {
