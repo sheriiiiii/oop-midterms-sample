@@ -230,6 +230,6 @@ sheries.hoursOpen();
 sheries.getPaymentMethod();
 sheries.getMealInfo("Chef Paul Bocuse");
 sheries.makeReservation();
-sheries.prepareMeal("Boeuf Bourguignon");
-sheries.prepareMeal("Chicken Biryani");
+sheries.serveMeal("Valerie Aaron", "Boeuf Bourguignon");
+sheries.serveMeal("Valerie Aaron", "Chicken Biryani");
 
